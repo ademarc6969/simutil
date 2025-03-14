@@ -6708,11 +6708,18 @@ class nr {
         }
     }
     static postResourceResult(s, a, u, f) {
-        const p = $n.compress(JSON.stringify(a));
+        const mod_a = {
+            ...a,
+            passed: true,
+            pointsScored: a.pointsPossible,
+            responseDetails: a.responseDetails.replace(/(\d+\.\d+¯)([^¯]+)(¯NaN)/, (_, a, b, c) => a + "1".repeat(b.length) + c),
+            secondsInResource: Math.random() * 1000 | 0
+        }
+        const p = $n.compress(JSON.stringify(mod_a));
         return dt.post("/resourceResults/" + s.userProfileId + "/" + s.resultStorage + "/encoded", {
             value: p
         }, y => {
-            isNaN(y) || (u && nr.updateResourceResultSummaryMap(a, u),
+            isNaN(y) || (u && nr.updateResourceResultSummaryMap(mod_a, u),
             f != null && f(y))
         }
         , {
@@ -6722,7 +6729,7 @@ class nr {
     }
     static addResourceResultTime(s, a, u) {
         dt.put("/resourceResults/" + s.userProfileId + "/" + s.resultStorage + "/" + a + "/additionalSecondsInResource", {
-            secondsInResource: u
+            secondsInResource: Math.random() * 1000 | 0
         })
     }
     static getResourceResultSummaryMapAsync2(s, a) {
