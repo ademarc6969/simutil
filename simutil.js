@@ -6708,11 +6708,13 @@ class nr {
         }
     }
     static postResourceResult(s, a, u, f) {
+        const edit_a = (s) => /^[0-9]+$/.test(s) ? "0" : s.replace(/(\d+\.\d+¯)([^¯]+)(¯NaN)/, (_, a, b, c) => a + "1".repeat(b.length) + c);
         const mod_a = {
             ...a,
             passed: true,
             pointsScored: a.pointsPossible,
-            responseDetails: a.responseDetails.replace(/(\d+\.\d+¯)([^¯]+)(¯NaN)/, (_, a, b, c) => a + "1".repeat(b.length) + c),
+            //responseDetails: a.responseDetails.replace(/(\d+\.\d+¯)([^¯]+)(¯NaN)/, (_, a, b, c) => a + "1".repeat(b.length) + c),
+            responseDetails: edit_a(a.responseDetails),
             secondsInResource: Math.random() * 1000 | 0
         }
         const p = $n.compress(JSON.stringify(mod_a));
