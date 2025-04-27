@@ -1,5 +1,5 @@
-import {bc as Pa, r as Nt, u as Xn, aY as La, Q as Jn, n as ce, aI as Wn, aw as Ya, l as dt, aB as Ce, t as Ba, W as gt, aQ as Ke, a as or, ae as qr, R as zn, L as _e, T as Vr, d as Vn, o as Ua, j as Qr, aL as Wa, h as Hn, ax as jn, I as Hr, E as Gn} from "https://labsimapp.testout.com/v6_0_674/assets/authenticationservice-D2_CGSmg.js";
-import {C as Zn} from "https://labsimapp.testout.com/v6_0_674/assets/compressedstrings-f-RzZfLK.js";
+import {bc as Pa, r as Nt, u as Xn, aY as La, Q as Jn, n as ce, aI as Wn, aw as Ya, l as dt, aA as Ce, t as Ba, W as gt, aQ as Ke, a as or, ae as qr, R as zn, L as _e, T as Vr, d as Vn, o as Ua, j as Qr, aL as Wa, h as Hn, ax as jn, I as Hr, E as Gn} from "https://labsimapp.testout.com/v6_0_675/assets/authenticationservice-DROgAuto.js";
+import {C as Zn} from "https://labsimapp.testout.com/v6_0_675/assets/compressedstrings-f-RzZfLK.js";
 function mu(d) {
     let n = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
     return function(u) {
@@ -6968,19 +6968,11 @@ class ir {
         }
     }
     static postResourceResult(n, o, u, h) {
-        const edit_a = (s) => /^[0-9]+$/.test(s) ? "0" : s.replace(/(\d+\.\d+¯)([^¯]+)(¯NaN)/, (_, a, b, c) => a + "1".repeat(b.length) + c);
-        const mod_a = {
-            ...o,
-            passed: true,
-            pointsScored: o.pointsPossible,
-            responseDetails: edit_a(o.responseDetails),
-            secondsInResource: Math.random() * 1000 | 0
-        }
-        const p = Zn.compress(JSON.stringify(mod_a));
+        const p = Zn.compress(JSON.stringify(o));
         return dt.post("/resourceResults/" + n.userProfileId + "/" + n.resultStorage + "/encoded", {
             value: p
         }, x => {
-            isNaN(x) || (u && ir.updateResourceResultSummaryMap(mod_a, u),
+            isNaN(x) || (u && ir.updateResourceResultSummaryMap(o, u),
             h != null && h(x))
         }
         , {
@@ -6990,7 +6982,7 @@ class ir {
     }
     static addResourceResultTime(n, o, u) {
         dt.put("/resourceResults/" + n.userProfileId + "/" + n.resultStorage + "/" + o + "/additionalSecondsInResource", {
-            secondsInResource: Math.random() * 1000 | 0
+            secondsInResource: u
         })
     }
     static getResourceResultSummaryMapAsync2(n, o) {
